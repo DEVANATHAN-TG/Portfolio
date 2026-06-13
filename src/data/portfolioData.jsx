@@ -1,45 +1,40 @@
-import { Atom, Cpu, Github, Terminal, Clapperboard, Palette, Mail, Phone, Linkedin, Download } from 'lucide-react';
+import { Code, Layout, Server, Database, Wrench, Mail, Phone, Linkedin, Download } from 'lucide-react';
 import React from 'react';
 
-export const skills = [
+export const skillCategories = [
     {
-        name: 'React',
-        desc: 'Modern UI/UX Development with Hooks, Redux, and Framer Motion.',
-        icon: <Atom size={40} strokeWidth={1.5} />
+        name: 'Languages',
+        icon: <Code size={40} strokeWidth={1.5} />,
+        skills: ['Python', 'JavaScript']
     },
     {
-        name: 'AI / ML',
-        desc: 'Predictive modeling, Neural Networks, and Data Analysis pipelines.',
-        icon: <Cpu size={40} strokeWidth={1.5} />
+        name: 'Frontend',
+        icon: <Layout size={40} strokeWidth={1.5} />,
+        skills: ['React', 'Next.js', 'HTML', 'CSS']
     },
     {
-        name: 'Git / GitHub',
-        desc: 'Advanced Version Control, CI/CD, and Collaborative Workflows.',
-        icon: <Github size={40} strokeWidth={1.5} />
+        name: 'Backend',
+        icon: <Server size={40} strokeWidth={1.5} />,
+        skills: ['Node', 'Supabase', 'Fastify']
     },
     {
-        name: 'Prompt Engineering',
-        desc: 'Optimizing Large Language Models through Strategic Input Design.',
-        icon: <Terminal size={40} strokeWidth={1.5} />
+        name: 'Database & ORM',
+        icon: <Database size={40} strokeWidth={1.5} />,
+        skills: ['MySQL', 'MongoDB', 'Drizzle ORM']
     },
     {
-        name: 'Mobile Video Editing',
-        desc: 'Engaging content creation and visual storytelling (Beginner level).',
-        icon: <Clapperboard size={40} strokeWidth={1.5} />
-    },
-    {
-        name: 'Logo Designer',
-        desc: 'Creating recognizable brand identities and minimalist vector graphics.',
-        icon: <Palette size={40} strokeWidth={1.5} />
+        name: "Dev's Tools",
+        icon: <Wrench size={40} strokeWidth={1.5} />,
+        skills: ['Git', 'GitHub', 'Vercel', 'Koyeb', 'Render']
     }
 ];
 
 export const projects = [
     {
-        title: 'CrowdFunding',
-        category: 'Blockchain',
-        year: '2024',
-        link: 'https://github.com/DEVANATHAN-TG'
+        title: 'Scheme Connect',
+        category: 'Full Stack & ML',
+        year: '2026',
+        link: 'https://github.com/DEVANATHAN-TG/SchemeConnect'
     },
     {
         title: 'Portfolio',
@@ -47,12 +42,6 @@ export const projects = [
         year: '2026',
         link: 'https://github.com/DEVANATHAN-TG'
     },
-    {
-        title: 'To-Do List',
-        category: 'React',
-        year: '2026',
-        link: 'https://github.com/DEVANATHAN-TG/To-do-list'
-    }
 ];
 
 export const contactInfo = {
@@ -60,5 +49,5 @@ export const contactInfo = {
     phone: '+919003439423',
     linkedin: 'https://www.linkedin.com/in/devanathan-tg',
     github: 'https://github.com/DEVANATHAN-TG',
-    resume: 'RESUME_DEVANATHAN.pdf'
+    resume: '/RESUME_DEVANATHAN.pdf'
 };
