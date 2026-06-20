@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
 const navItems = [
   { label: 'Home', href: '#home' },
-  { label: 'About Me', href: '#about' },
+  { label: 'About', href: '#about' },
   { label: 'Skills', href: '#skills' },
   { label: 'Projects', href: '#projects' },
   { label: 'Contact', href: '#contact' },
@@ -13,56 +13,82 @@ const navItems = [
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   const toggleMenu = () => setMobileOpen(prev => !prev);
   const closeMenu = () => setMobileOpen(false);
 
+  // Auto-close menu on scroll & track scroll state for header style
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+      if (mobileOpen) closeMenu();
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [mobileOpen]);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const handleClickOutside = (e) => {
+      if (!e.target.closest('.mobile-menu-overlay') && !e.target.closest('.nav-hamburger')) {
+        closeMenu();
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [mobileOpen]);
+
   return (
-    <header className="header">
-      {/* Logo */}
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8 }}
-        style={{ fontSize: '1.2rem', fontWeight: '600', letterSpacing: '0.2rem', textTransform: 'uppercase' }}
-      >
-        DEVANATHAN T
-      </motion.div>
+    <>
+      {/* Fixed Header */}
+      <header className={`header ${scrolled ? 'header--scrolled' : ''}`}>
+        {/* Logo */}
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          className="nav-logo"
+        >
+          DEVANATHAN T
+        </motion.div>
 
-      {/* Desktop Nav Links */}
-      <nav className="nav-links">
-        {navItems.map((item, index) => (
-          <motion.a
-            key={item.label}
-            href={item.href}
-            {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-          >
-            {item.label}
-          </motion.a>
-        ))}
-      </nav>
+        {/* Desktop Nav Links */}
+        <nav className="nav-links">
+          {navItems.map((item, index) => (
+            <motion.a
+              key={item.label}
+              href={item.href}
+              {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              {item.label}
+            </motion.a>
+          ))}
+        </nav>
 
-      {/* Mobile Hamburger Button */}
-      <button
-        className="nav-hamburger"
-        onClick={toggleMenu}
-        aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-      >
-        {mobileOpen ? <X size={28} /> : <Menu size={28} />}
-      </button>
+        {/* Mobile Hamburger Button */}
+        <button
+          className="nav-hamburger"
+          onClick={toggleMenu}
+          aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+        >
+          {mobileOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
+      </header>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Dropdown — compact panel, doesn't hide page */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
             className="mobile-menu-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
           >
             {navItems.map((item, index) => (
               <motion.a
@@ -70,10 +96,10 @@ const Navbar = () => {
                 href={item.href}
                 {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                 onClick={closeMenu}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3, delay: index * 0.08 }}
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 10 }}
+                transition={{ duration: 0.2, delay: index * 0.04 }}
               >
                 {item.label}
               </motion.a>
@@ -81,8 +107,9 @@ const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 };
 
 export default Navbar;
+

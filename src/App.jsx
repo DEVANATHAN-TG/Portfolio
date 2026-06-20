@@ -20,8 +20,8 @@ function App() {
         <Skills />
         <Projects />
         <Contact />
+        <Footer />
       </main>
-      <Footer />
     </div>
   );
 }

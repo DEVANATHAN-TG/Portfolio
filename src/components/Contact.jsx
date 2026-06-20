@@ -12,34 +12,36 @@ const Contact = () => {
                 transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
             >
-                <span style={{ color: 'var(--secondary)', letterSpacing: '0.3rem', textTransform: 'uppercase', fontSize: '0.8rem' }}>Get in Touch</span>
+                <span className="contact-section-label">Get in Touch</span>
                 <h2 style={{ marginTop: '1rem', fontSize: 'clamp(2.5rem, 8vw, 5rem)' }}>
                     Let's create something <span style={{ fontWeight: '500' }}>exceptional.</span>
                 </h2>
 
-                <div style={{ marginTop: '5rem', display: 'flex', flexWrap: 'wrap', gap: '5rem', marginBottom: '8rem' }}>
+                <div className="contact-layout">
 
                     {/* Contact Methods */}
                     <div>
-                        <p style={{ color: 'var(--secondary)', marginBottom: '1.5rem', textTransform: 'uppercase', fontSize: '0.7rem', letterSpacing: '0.2rem' }}>Connect</p>
-                        <div style={{ display: 'flex', gap: '3rem', flexWrap: 'wrap' }}>
+                        <p className="contact-methods-label">Connect</p>
+                        <div className="contact-icons">
 
                             <motion.a
                                 href={`mailto:${contactInfo.email}`}
                                 whileHover={{ y: -5 }}
-                                style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.8rem', color: 'var(--text)', textDecoration: 'none' }}
+                                className="contact-link"
+                                aria-label="Send email"
                             >
                                 <Mail size={28} strokeWidth={1.2} />
-                                <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1rem', color: 'var(--secondary)' }}>Email</span>
+                                <span className="contact-link-label">Email</span>
                             </motion.a>
 
                             <motion.a
                                 href={`tel:${contactInfo.phone}`}
                                 whileHover={{ y: -5 }}
-                                style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.8rem', color: 'var(--text)', textDecoration: 'none' }}
+                                className="contact-link"
+                                aria-label="Call phone"
                             >
                                 <Phone size={28} strokeWidth={1.2} />
-                                <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1rem', color: 'var(--secondary)' }}>Call</span>
+                                <span className="contact-link-label">Call</span>
                             </motion.a>
 
                             <motion.a
@@ -47,10 +49,11 @@ const Contact = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 whileHover={{ y: -5 }}
-                                style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.8rem', color: 'var(--text)', textDecoration: 'none' }}
+                                className="contact-link"
+                                aria-label="Visit LinkedIn profile"
                             >
                                 <Linkedin size={28} strokeWidth={1.2} />
-                                <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1rem', color: 'var(--secondary)' }}>LinkedIn</span>
+                                <span className="contact-link-label">LinkedIn</span>
                             </motion.a>
 
                             <motion.a
@@ -58,10 +61,11 @@ const Contact = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 whileHover={{ y: -5 }}
-                                style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.8rem', color: 'var(--text)', textDecoration: 'none' }}
+                                className="contact-link"
+                                aria-label="Visit GitHub profile"
                             >
                                 <Github size={28} strokeWidth={1.2} />
-                                <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1rem', color: 'var(--secondary)' }}>GitHub</span>
+                                <span className="contact-link-label">GitHub</span>
                             </motion.a>
 
                         </div>
@@ -69,25 +73,12 @@ const Contact = () => {
 
                     {/* Resume Block */}
                     <div>
-                        <p style={{ color: 'var(--secondary)', marginBottom: '1.5rem', textTransform: 'uppercase', fontSize: '0.7rem', letterSpacing: '0.2rem' }}>Resume</p>
+                        <p className="contact-resume-label">Resume</p>
                         <motion.a
                             href={contactInfo.resume}
                             download="DEVANATHAN_T_Resume.pdf"
                             whileHover={{ scale: 1.05 }}
-                            style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '1rem',
-                                padding: '1.2rem 2.5rem',
-                                border: '1px solid var(--border)',
-                                borderRadius: '4px',
-                                fontSize: '0.8rem',
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.15rem',
-                                background: 'rgba(255,255,255,0.03)',
-                                color: 'white',
-                                textDecoration: 'none'
-                            }}
+                            className="resume-button"
                         >
                             <Download size={18} /> Download CV
                         </motion.a>

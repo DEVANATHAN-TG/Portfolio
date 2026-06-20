@@ -14,6 +14,7 @@
   --border: rgba(255, 255, 255, 0.1);
   --overlay-center: rgba(0, 0, 0, 0.3);
   --overlay-edge: rgba(0, 0, 0, 0.72);
+  --header-height: 70px;
 }
 
 /* ── Reset & Base ── */
@@ -36,6 +37,11 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Lock body scroll when mobile menu is open */
+body.menu-open {
+  overflow: hidden;
 }
 
 .container {
@@ -77,6 +83,20 @@ body {
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Enhanced header on scroll */
+.header--scrolled {
+  background: rgba(0, 0, 0, 0.85);
+  box-shadow: 0 1px 20px rgba(0, 0, 0, 0.4);
+}
+
+.nav-logo {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
 }
 
 .nav-links {
@@ -109,33 +129,49 @@ body {
   z-index: 1100;
 }
 
-/* Mobile Menu Overlay */
+/* Mobile Menu Overlay — compact dropdown with black opacity bg */
 .mobile-menu-overlay {
   position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  top: var(--header-height);
+  right: 0;
+  width: 260px;
+  border-radius: 0 0 0 16px;
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 3rem;
+  align-items: flex-start;
+  padding: 1.5rem 2rem;
+  gap: 0.3rem;
   z-index: 1050;
+  box-shadow: -4px 8px 30px rgba(0, 0, 0, 0.5);
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .mobile-menu-overlay a {
   text-decoration: none;
-  color: var(--text);
-  font-size: 1.8rem;
-  font-weight: 300;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1rem;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.3rem;
-  transition: opacity 0.3s;
+  letter-spacing: 0.12rem;
+  padding: 0.7rem 0.8rem;
+  width: 100%;
+  border-radius: 8px;
+  transition: background 0.3s, color 0.3s, transform 0.3s;
 }
 
 .mobile-menu-overlay a:hover {
-  opacity: 0.5;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  transform: translateX(4px);
+}
+
+/* Close button inside mobile overlay — hidden since hamburger toggles */
+.mobile-menu-close {
+  display: none;
 }
 
 /* ==========================================================
@@ -178,7 +214,29 @@ body {
   align-items: center;
 }
 
+.hero-subtitle {
+  color: var(--secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
 
+.hero-name {
+  font-size: clamp(2.5rem, 5vw, 6rem);
+  font-weight: 300;
+  margin-bottom: 1.5rem;
+  line-height: 1;
+}
+
+.hero-description {
+  color: var(--secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  max-width: 700px;
+}
 
 /* ==========================================================
    SECTIONS (generic)
@@ -186,6 +244,13 @@ body {
 section {
   padding: 100px 0;
   min-height: 80vh;
+  scroll-margin-top: var(--header-height);
+}
+
+/* Scroll anchor offset for nested anchors */
+[id="about"],
+[id="skills-anchor"] {
+  scroll-margin-top: calc(var(--header-height) + 20px);
 }
 
 h2 {
@@ -197,24 +262,208 @@ h2 {
 }
 
 /* ==========================================================
-   PROJECT ITEMS
+   ABOUT SECTION
    ========================================================== */
+.about-card {
+  padding: 3rem 2rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  margin-top: 2rem;
+}
+
+.about-text {
+  color: var(--secondary);
+  line-height: 1.8;
+  font-size: 1.15rem;
+  text-align: justify;
+}
+
+/* ==========================================================
+   EDUCATION SECTION (Accordion)
+   ========================================================== */
+.education-section {
+  margin-top: 2.5rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  overflow: hidden;
+}
+
+.education-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.4rem 2rem;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.3s;
+}
+
+.education-header:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.education-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.05rem;
+}
+
+.education-chevron {
+  display: inline-flex;
+  align-items: center;
+  color: var(--secondary);
+}
+
+/* Expandable body */
+.education-body {
+  overflow: hidden;
+}
+
+.education-body-inner {
+  padding: 0 2rem 2rem 2rem;
+}
+
+.education-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--border);
+  gap: 2rem;
+}
+
+.education-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.education-degree {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.education-year {
+  font-size: 0.85rem;
+  color: var(--secondary);
+  letter-spacing: 0.04rem;
+}
+
+.education-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.3rem;
+  text-align: right;
+}
+
+.education-college {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.education-region {
+  font-size: 0.85rem;
+  color: var(--secondary);
+}
+
+/* ==========================================================
+   SKILLS GRID
+   ========================================================== */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 3rem;
+  margin-top: 5rem;
+}
+
+.skill-card {
+  padding: 3rem 2rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  transition: border-color 0.3s ease;
+}
+
+.skill-card-icon {
+  color: white;
+  margin-bottom: 2rem;
+}
+
+.skill-card-title {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.05rem;
+}
+
+.skill-card-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.skill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--secondary);
+  font-size: 0.88rem;
+  font-weight: 400;
+  letter-spacing: 0.02rem;
+  transition: border-color 0.3s, background 0.3s, color 0.3s;
+}
+
+.skill-tag:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.skill-tag-icon {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1rem;
+  opacity: 0.85;
+}
+
+/* ==========================================================
+   PROJECT ITEMS — Expandable Cards
+   ========================================================== */
+.project-item-wrapper {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s ease;
+}
+
+.project-item-wrapper--expanded {
+  background: rgba(255, 255, 255, 0.02);
+}
+
 .project-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 3rem 0;
-  border-bottom: 1px solid var(--border);
+  padding: 2.5rem 1rem;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   color: var(--text);
   text-decoration: none;
+  user-select: none;
 }
 
 .project-item:hover {
-  color: var(--secondary) !important;
-  padding-left: 1rem;
-  background: rgba(255, 255, 255, 0.02);
+  padding-left: 1.5rem;
 }
 
 .project-category {
@@ -236,10 +485,132 @@ h2 {
   transform: translateX(10px);
 }
 
+.project-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
 .project-year {
   font-size: 1.2rem;
   font-weight: 300;
   opacity: 0.5;
+}
+
+.project-chevron {
+  display: inline-flex;
+  align-items: center;
+  color: var(--secondary);
+}
+
+/* Expandable Details Panel */
+.project-details {
+  overflow: hidden;
+}
+
+.project-details-inner {
+  padding: 0 1rem 2.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.project-description {
+  color: var(--secondary);
+  font-size: 1rem;
+  line-height: 1.8;
+  max-width: 700px;
+}
+
+/* GitHub Button */
+.project-github-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  text-decoration: none;
+  cursor: pointer;
+  width: fit-content;
+  transition: background 0.3s, border-color 0.3s, transform 0.3s;
+}
+
+.project-github-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================
+   CONTACT SECTION
+   ========================================================== */
+.contact-section-label {
+  color: var(--secondary);
+  letter-spacing: 0.3rem;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.contact-layout {
+  margin-top: 5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5rem;
+  margin-bottom: 8rem;
+}
+
+.contact-methods-label,
+.contact-resume-label {
+  color: var(--secondary);
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.2rem;
+}
+
+.contact-icons {
+  display: flex;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.contact-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.contact-link-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  color: var(--secondary);
+}
+
+.resume-button {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem 2.5rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15rem;
+  background: rgba(255, 255, 255, 0.03);
+  color: white;
+  text-decoration: none;
 }
 
 /* ==========================================================
@@ -291,6 +662,31 @@ h2 {
 }
 
 /* ==========================================================
+   RESPONSIVE — Tablet (769px – 1024px)
+   ========================================================== */
+@media (max-width: 1024px) {
+  .nav-links {
+    gap: 1.8rem;
+  }
+
+  .nav-links a {
+    font-size: 0.8rem;
+  }
+
+  h2 {
+    font-size: 2.8rem;
+  }
+
+  .skills-grid {
+    gap: 2rem;
+  }
+
+  .contact-layout {
+    gap: 3rem;
+  }
+}
+
+/* ==========================================================
    RESPONSIVE — Mobile Navigation & Layout
    ========================================================== */
 @media (max-width: 768px) {
@@ -336,8 +732,131 @@ h2 {
     padding: 0 5%;
   }
 
+  .hero-subtitle {
+    letter-spacing: 0.25rem;
+    font-size: 0.75rem;
+  }
+
+  .hero-name {
+    font-size: clamp(2rem, 8vw, 3.5rem);
+  }
+
+  .hero-description {
+    letter-spacing: 0.1rem;
+    font-size: 0.8rem;
+  }
+
   h2 {
     font-size: 2.2rem;
     margin-bottom: 2rem;
+  }
+
+  /* About card */
+  .about-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .about-text {
+    font-size: 1rem;
+  }
+
+  /* Education */
+  .education-header {
+    padding: 1.2rem 1.5rem;
+  }
+
+  .education-body-inner {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+  }
+
+  .education-entry {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .education-right {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  /* Skills grid */
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .skill-card {
+    padding: 2rem 1.5rem;
+  }
+
+  /* Contact */
+  .contact-layout {
+    flex-direction: column;
+    gap: 3rem;
+    margin-bottom: 4rem;
+  }
+
+  .contact-icons {
+    gap: 2rem;
+  }
+
+  /* Projects */
+  .project-item {
+    padding: 1.8rem 0.5rem;
+    gap: 0.5rem;
+  }
+
+  .project-meta {
+    gap: 0.5rem;
+  }
+
+  .project-details-inner {
+    padding: 0 0.5rem 2rem 0.5rem;
+  }
+
+  .project-year {
+    font-size: 1rem;
+  }
+}
+
+/* ==========================================================
+   RESPONSIVE — Small Phones (< 480px)
+   ========================================================== */
+@media (max-width: 480px) {
+  .hero-name {
+    font-size: clamp(1.8rem, 10vw, 2.5rem);
+  }
+
+  .hero-subtitle {
+    letter-spacing: 0.15rem;
+    font-size: 0.7rem;
+  }
+
+  .hero-description {
+    font-size: 0.75rem;
+    letter-spacing: 0.08rem;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  .mobile-menu-overlay a {
+    font-size: 1.3rem;
+    letter-spacing: 0.05rem;
+  }
+
+  .contact-icons {
+    gap: 1.5rem;
+  }
+
+  .resume-button {
+    padding: 1rem 1.8rem;
+    font-size: 0.75rem;
+  }
+
+  .footer-disclaimer {
+    max-width: 100%;
   }
 }

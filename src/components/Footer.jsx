@@ -18,10 +18,10 @@ const Footer = () => {
 
         <div className="footer-right">
           <p className="footer-copy">
-            &copy; {new Date().getFullYear()} All Rights Reserved.
+            &copy; {new Date().getFullYear()} For Education Purpose.
           </p>
           <p className="footer-disclaimer">
-            Disclaimer: This site is for professional portfolio purposes only.
+            Crafted ❤️ by DEVANATHAN
           </p>
         </div>
       </div>

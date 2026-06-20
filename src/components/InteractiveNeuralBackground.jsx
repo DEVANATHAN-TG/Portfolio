@@ -10,20 +10,28 @@ const InteractiveNeuralBackground = () => {
         
         let width = window.innerWidth;
         let height = window.innerHeight;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap at 2x for performance
+
+        // Detect mobile for reduced workload
+        const isMobile = width <= 768;
         
         const resize = () => {
             width = window.innerWidth;
             height = window.innerHeight;
-            canvas.width = width;
-            canvas.height = height;
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         };
         
         window.addEventListener('resize', resize);
         resize();
 
-        // Node definitions
-        const NUM_NODES = Math.floor((width * height) / 12000); // Responsive amount of nodes
-        const MAX_DISTANCE = 200;
+        // Node definitions — capped for performance
+        const maxNodes = isMobile ? 40 : 120;
+        const NUM_NODES = Math.min(Math.floor((width * height) / 15000), maxNodes);
+        const MAX_DISTANCE = isMobile ? 150 : 200;
         const nodes = [];
 
         // Generate nodes
@@ -41,6 +49,7 @@ const InteractiveNeuralBackground = () => {
 
         const mouse = { x: width / 2, y: height / 2, active: false };
 
+        // Only add mouse interaction on non-touch devices
         const handleMouseMove = (e) => {
             mouse.x = e.clientX;
             mouse.y = e.clientY;
@@ -51,8 +60,10 @@ const InteractiveNeuralBackground = () => {
             mouse.active = false; 
         };
         
-        window.addEventListener('mousemove', handleMouseMove);
-        window.addEventListener('mouseleave', handleMouseLeave);
+        if (!isMobile) {
+            window.addEventListener('mousemove', handleMouseMove);
+            window.addEventListener('mouseleave', handleMouseLeave);
+        }
 
         let time = 0;
 
@@ -103,16 +114,20 @@ const InteractiveNeuralBackground = () => {
                     let other = nodes[j];
                     const dx = node.x - other.x;
                     const dy = node.y - other.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    const distSq = dx * dx + dy * dy;
 
-                    if (dist < MAX_DISTANCE) {
+                    // Use squared distance comparison to avoid sqrt when possible
+                    if (distSq < MAX_DISTANCE * MAX_DISTANCE) {
+                        const dist = Math.sqrt(distSq);
                         // Calculate opacity based on distance
                         let opacity = (1 - (dist / MAX_DISTANCE)) * 0.6;
                         
                         // Extra brightness if near mouse
                         if (mouse.active) {
-                            const mDist = Math.sqrt(Math.pow(mouse.x - node.x, 2) + Math.pow(mouse.y - node.y, 2));
-                            if (mDist < 200) opacity *= 1.5;
+                            const mDx = mouse.x - node.x;
+                            const mDy = mouse.y - node.y;
+                            const mDistSq = mDx * mDx + mDy * mDy;
+                            if (mDistSq < 40000) opacity *= 1.5; // 200^2
                         }
 
                         // Gradient line
@@ -169,8 +184,10 @@ const InteractiveNeuralBackground = () => {
 
         return () => {
             window.removeEventListener('resize', resize);
-            window.removeEventListener('mousemove', handleMouseMove);
-            window.removeEventListener('mouseleave', handleMouseLeave);
+            if (!isMobile) {
+                window.removeEventListener('mousemove', handleMouseMove);
+                window.removeEventListener('mouseleave', handleMouseLeave);
+            }
             cancelAnimationFrame(animationFrameId);
         };
     }, []);
