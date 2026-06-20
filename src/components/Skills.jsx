@@ -13,7 +13,7 @@ const educationData = [
     },
     {
         level: 'UG',
-        degree: 'BCA',
+        degree: 'BCA – Bachelor of Computer Application',
         year: '2021 – 2024',
         college: 'Saradha Gangadharan College',
         region: 'Puducherry, India',

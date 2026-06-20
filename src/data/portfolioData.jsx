@@ -68,7 +68,7 @@ export const projects = [
     },
     {
         title: 'Portfolio',
-        category: 'Prompt Engineering',
+        category: 'AI & Prompt Engineering',
         year: '2026',
         description: 'A modern, dark-themed personal portfolio website built with React, Vite, and Framer Motion. Features an interactive neural network background, smooth scroll animations, and a fully responsive design crafted through prompt engineering.',
         link: 'https://github.com/DEVANATHAN-TG'
