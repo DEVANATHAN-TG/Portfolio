@@ -1,6 +1,6 @@
 # Devanathan T — Portfolio Website
 
-Personal portfolio website showcasing my work as an **AI/ML Engineer & Full-Stack Developer**.
+Personal portfolio website showcasing my work as an **AI Engineer & Full-Stack Developer**.
 
 live Link - https://devanathan-t-portfolio.vercel.app/
 
