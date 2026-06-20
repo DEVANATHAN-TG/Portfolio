@@ -46,4 +46,4 @@ src/
 
 ## License
 
-© Devanathan T. All rights reserved.
+© Devanathan T - For Education Purpose.
