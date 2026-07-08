@@ -1,11 +1,13 @@
-import { Code, Layout, Server, Database, Wrench, Mail, Phone, Linkedin, Download } from 'lucide-react';
+import { Code, Layout, Server, Database, Wrench, Palette } from 'lucide-react';
 import {
     SiPython, SiJavascript,
     SiReact, SiNextdotjs, SiHtml5, SiCss,
     SiNodedotjs, SiSupabase, SiFastify,
     SiMysql, SiMongodb, SiDrizzle,
-    SiGit, SiGithub, SiVercel, SiKoyeb, SiRender
+    SiGit, SiGithub, SiVercel, SiKoyeb, SiRender,
+    SiFigma, SiCanva, SiSketch
 } from 'react-icons/si';
+import { TbBrandAdobe } from 'react-icons/tb';
 import React from 'react';
 
 export const skillCategories = [
@@ -43,6 +45,16 @@ export const skillCategories = [
             { name: 'MySQL', icon: <SiMysql /> },
             { name: 'MongoDB', icon: <SiMongodb /> },
             { name: 'Drizzle ORM', icon: <SiDrizzle /> },
+        ]
+    },
+    {
+        name: 'UI / UX Design',
+        icon: <Palette size={40} strokeWidth={1.5} />,
+        skills: [
+            { name: 'Figma', icon: <SiFigma /> },
+            { name: 'Canva', icon: <SiCanva /> },
+            { name: 'Adobe Express', icon: <TbBrandAdobe /> },
+            { name: 'Sketch', icon: <SiSketch /> },
         ]
     },
     {

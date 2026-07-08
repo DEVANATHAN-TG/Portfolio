@@ -32,7 +32,7 @@ const Hero = () => {
                     transition={{ duration: 0.8, delay: 0.6 }}
                 >
                     Crafting intelligent digital experiences through code and innovative style.
-                    Specialized in Python, React, and the art of prompt .
+                    Specialized in Python, React, and the art of prompt engineering.
                 </motion.p>
 
                 <motion.a
