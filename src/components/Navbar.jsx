@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { contactInfo } from '../data/portfolioData';
 
 const navItems = [
   { label: 'Home', href: '#home' },
   { label: 'About', href: '#about' },
   { label: 'Skills', href: '#skills' },
+  { label: 'Experience', href: '#experience' },
   { label: 'Projects', href: '#projects' },
   { label: 'Contact', href: '#contact' },
-  { label: 'Resume', href: '/RESUME_DEVANATHAN.pdf', external: true },
+  { label: 'Resume', href: contactInfo.resume, external: true },
 ];
 
 const Navbar = () => {

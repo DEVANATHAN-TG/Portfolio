@@ -5,7 +5,7 @@ import {
     SiNodedotjs, SiSupabase, SiFastify,
     SiMysql, SiMongodb, SiDrizzle,
     SiGit, SiGithub, SiVercel, SiKoyeb, SiRender,
-    SiFigma, SiCanva, SiSketch
+    SiFigma, SiCanva, SiFramer
 } from 'react-icons/si';
 import { TbBrandAdobe } from 'react-icons/tb';
 import React from 'react';
@@ -54,7 +54,7 @@ export const skillCategories = [
             { name: 'Figma', icon: <SiFigma /> },
             { name: 'Canva', icon: <SiCanva /> },
             { name: 'Adobe Express', icon: <TbBrandAdobe /> },
-            { name: 'Sketch', icon: <SiSketch /> },
+            { name: 'Framer', icon: <SiFramer /> },
         ]
     },
     {
@@ -87,10 +87,58 @@ export const projects = [
     },
 ];
 
+export const experiences = [
+    {
+        role: 'UX/UI Designer Intern',
+        company: 'Duhzine IT Solutions Pvt Ltd',
+        period: 'May 2026 – Aug 2026',
+        badge: 'Internship',
+        workplace: 'Remote',
+        location: 'Puducherry, India',
+        grade: 'Grade A',
+        description: 'Owned the end-to-end UI/UX lifecycle for multiple client web platforms, established design system foundations, and created digital brand media.',
+        highlights: [
+            'Owned the end-to-end UI/UX process for multiple client web projects, from requirements gathering through wireframes, interactive prototypes, and final visual designs in Figma & Framer.',
+            'Created and maintained a modular, reusable design system adopted across client projects, reducing design-to-development turnaround and standardizing team handoffs.',
+            'Leveraged generative AI tools to script and produce client-requested promotional video content, expanding agency delivery beyond conventional design boundaries.',
+            'Completed the internship program with a top-tier "Grade A" performance rating.'
+        ],
+        technologies: ['Figma', 'Framer', 'Design Systems', 'Wireframing', 'Prototyping', 'AI Video Generation', 'UI/UX']
+    },
+    {
+        role: 'InPlant Trainee',
+        company: 'Lenovo India Private Limited',
+        period: 'September 2023',
+        badge: 'Trainee',
+        workplace: 'Onsite',
+        location: 'Puducherry, India',
+        grade: null,
+        description: 'Conducted rigorous hardware quality assurance and defect inspection processes across active desktop manufacturing batches.',
+        highlights: [
+            'Performed hardware quality testing and defect inspection on desktop systems across assembly batches, verifying full compliance with global manufacturing standards.',
+            'Documented inspection anomalies to improve traceability and quality verification across production lines.'
+        ],
+        technologies: ['Quality Assurance', 'Hardware Inspection', 'Compliance Standards', 'Assembly Batch Testing', 'Traceability']
+    }
+];
+
+export const certifications = [
+    {
+        title: 'Machine Learning for Core Engineering Disciplines',
+        issuer: 'NPTEL',
+        category: 'AI & Machine Learning'
+    },
+    {
+        title: 'Data Analytics with Python',
+        issuer: 'NPTEL',
+        category: 'Data Science & Python'
+    }
+];
+
 export const contactInfo = {
     email: 'devanathan0824@gmail.com',
     phone: '+919003439423',
     linkedin: 'https://www.linkedin.com/in/devanathan-tg',
     github: 'https://github.com/DEVANATHAN-TG',
-    resume: '/RESUME_DEVANATHAN.pdf'
+    resume: '/DEVANATHAN T - Resume.pdf'
 };

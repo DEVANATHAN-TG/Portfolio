@@ -76,7 +76,7 @@ const Contact = () => {
                         <p className="contact-resume-label">Resume</p>
                         <motion.a
                             href={contactInfo.resume}
-                            download="DEVANATHAN_T_Resume.pdf"
+                            download="DEVANATHAN T - Resume.pdf"
                             whileHover={{ scale: 1.05 }}
                             className="resume-button"
                         >

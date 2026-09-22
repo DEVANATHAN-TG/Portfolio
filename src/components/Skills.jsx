@@ -90,7 +90,7 @@ const Skills = () => {
                                         <div key={edu.level} className="education-entry">
                                             <div className="education-left">
                                                 <span className="education-degree">{edu.degree}</span>
-                                                <span className="education-year">{edu.year}</span>
+                                                    <span className="education-year">{edu.year}</span>
                                             </div>
                                             <div className="education-right">
                                                 <span className="education-college">{edu.college}</span>

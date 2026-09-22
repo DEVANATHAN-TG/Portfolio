@@ -37,7 +37,7 @@ const Hero = () => {
 
                 <motion.a
                     href={contactInfo.resume}
-                    download="DEVANATHAN_T_Resume.pdf"
+                    download="DEVANATHAN T - Resume.pdf"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.8 }}
